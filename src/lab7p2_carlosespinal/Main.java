@@ -232,28 +232,37 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        try {                                      
-            // TODO add your handling code here:
-            File archivo = null;
-            FileWriter canal = null;
-            BufferedWriter buffer = null;
-            
+        DefaultTableModel dtm = (DefaultTableModel) jTable2.getModel();
+        if (sirvepue() == true) {
+
             try {
-                archivo = new File("./mitexto.txt");
-                canal = new FileWriter(archivo, false);//SI LE QUITAMOS EL TRUE, REEMPLAZA LOS CONTENIDOS DEL ARCHIVO
-                buffer = new BufferedWriter(canal);
-                buffer.write(tablaString());
-                buffer.newLine();
-                buffer.flush();
-                
-            } catch (Exception e) {
-                e.printStackTrace();
+                // TODO add your handling code here:
+                File archivo = null;
+                FileWriter canal = null;
+                BufferedWriter buffer = null;
+
+                try {
+                    archivo = new File("./mitexto.txt");
+                    canal = new FileWriter(archivo, false);//SI LE QUITAMOS EL TRUE, REEMPLAZA LOS CONTENIDOS DEL ARCHIVO
+                    buffer = new BufferedWriter(canal);
+                    buffer.write(tablaString());
+                    buffer.newLine();
+                    buffer.flush();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                buffer.close();
+                canal.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-            buffer.close();
-            canal.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } else{
+            JOptionPane.showMessageDialog(this, "Y vos maje? Tenes algo malo vo");
+            
         }
+        dtm.setRowCount(0);
+        jTable2.setModel(dtm);
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void EDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDatosMouseClicked
@@ -321,8 +330,6 @@ public class Main extends javax.swing.JFrame {
     
     private String tablaString(){
         String fin = "";
-        System.out.println(jTable2.getRowCount());
-        System.out.println(jTable2.getColumnCount());
         DefaultTableModel dtm = (DefaultTableModel) jTable2.getModel();
         for (int i = 0; i < jTable2.getRowCount(); i++) {
             for (int j = 0; j < jTable2.getColumnCount(); j++) {
@@ -395,6 +402,70 @@ public class Main extends javax.swing.JFrame {
             }
         }
         return fin;
+    }
+    
+    private boolean sirvepue(){
+        DefaultTableModel dtm =  (DefaultTableModel) jTable2.getModel();
+        int conterror = 0;
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            for (int j = 0; j < dtm.getColumnCount(); j++) {
+                String a = dtm.getValueAt(i, j).toString();
+                switch(j){
+                    case 0:
+                        for (int k = 0; k < a.length(); k++) {
+                            if ((int)a.charAt(k) >= 48 && (int)a.charAt(k) <= 57) {
+                            } else{
+                                conterror++;
+                            }
+                        }
+
+                        break;
+                    case 1:
+                        String b = a.toLowerCase();
+                        for (int k = 0; k < a.length(); k++) {
+                            if ((int)a.charAt(k) >= 97 && (int)a.charAt(k) <= 122) {
+                            } else{
+                                conterror++;
+                            }
+                        }
+                        break;
+                    case 2:
+                        int num = Integer.parseInt(a);
+                        if (num >= 0 && num <= 9) {
+                        } else{
+                            conterror++;
+                        }
+                        break;
+                    case 3:
+                        
+                        break;
+                    case 4:
+                        int contdigitos = 0;
+                        for (int k = 0; k < a.length(); k++) {
+                            contdigitos++;
+                        }
+                        if (contdigitos < 3) {
+                            conterror++;
+                        }
+                        break;
+                    case 5:
+                        int contdigitos2 = 0;
+                        for (int k = 0; k < a.length(); k++) {
+                            contdigitos2++;
+                        }
+                        if (contdigitos2 < 3) {
+                            conterror++;
+                        }
+                        break;
+                }
+            }
+        }
+        if (conterror == 0) {
+            return true;
+        } else{
+            return false;
+        }
+        
     }
     
     ArrayList<Producto> list = new ArrayList();
