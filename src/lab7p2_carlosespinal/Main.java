@@ -258,7 +258,29 @@ public class Main extends javax.swing.JFrame {
 
     private void EDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDatosMouseClicked
         // TODO add your handling code here:
-        System.out.println(tablaJSON());
+        try {                                      
+            // TODO add your handling code here:
+            File archivo = null;
+            FileWriter canal = null;
+            BufferedWriter buffer = null;
+            
+            try {
+                archivo = new File("./datajson.txt");
+                canal = new FileWriter(archivo, false);//SI LE QUITAMOS EL TRUE, REEMPLAZA LOS CONTENIDOS DEL ARCHIVO
+                buffer = new BufferedWriter(canal);
+                buffer.write(tablaJSON());
+                buffer.newLine();
+                buffer.flush();
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            buffer.close();
+            canal.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
         
     }//GEN-LAST:event_EDatosMouseClicked
 
@@ -333,7 +355,7 @@ public class Main extends javax.swing.JFrame {
     
     private String tablaJSON(){
         DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-        String fin = "[\n {";
+        String fin = "[\n     {";
         
         for (int i = 0; i < dtm.getRowCount(); i++) {
             for (int j = 0; j < dtm.getColumnCount(); j++) {
@@ -359,14 +381,18 @@ public class Main extends javax.swing.JFrame {
                             if (i == dtm.getRowCount()-1) {
                                  fin += "\"bin\": "+dtm.getValueAt(i, j)+"} \n]";
                             } else{
-                                fin += "\"bin\": "+dtm.getValueAt(i, j)+"}, \n";
+                                fin += "\"bin\": "+dtm.getValueAt(i, j)+"}, \n     {";
                             }
                             break;
                     }
                 }
                 
             }
-            fin += " {";
+            if (i == dtm.getRowCount()-1) {
+                
+            }else{
+                
+            }
         }
         return fin;
     }

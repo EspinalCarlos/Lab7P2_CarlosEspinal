@@ -1,4 +1,4 @@
 id,name,category,price,aisle,bin
 1,a,3,5.0,777,999
-2,v,4,6.0,888,
+2,b,4,6.0,888,100
 
