@@ -258,6 +258,7 @@ public class Main extends javax.swing.JFrame {
 
     private void EDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDatosMouseClicked
         // TODO add your handling code here:
+        System.out.println(tablaJSON());
         
     }//GEN-LAST:event_EDatosMouseClicked
 
@@ -326,6 +327,46 @@ public class Main extends javax.swing.JFrame {
                 }
                 
             }
+        }
+        return fin;
+    }
+    
+    private String tablaJSON(){
+        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+        String fin = "[\n {";
+        
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            for (int j = 0; j < dtm.getColumnCount(); j++) {
+                if (i == 0) {
+                } else{
+                    switch (j) {
+                        case 0:
+                            fin += "\"id\": "+dtm.getValueAt(i, j)+", ";
+                            break;
+                        case 1:
+                             fin += "\"name\": "+dtm.getValueAt(i, j)+", ";
+                            break;
+                        case 2:
+                            fin += "\"category\": "+dtm.getValueAt(i, j)+", ";
+                            break;
+                        case 3:
+                            fin += "\"price\": "+dtm.getValueAt(i, j)+", ";
+                            break;
+                        case 4:
+                            fin += "\"aisle\": "+dtm.getValueAt(i, j)+", ";
+                            break;
+                        case 5:
+                            if (i == dtm.getRowCount()-1) {
+                                 fin += "\"bin\": "+dtm.getValueAt(i, j)+"} \n]";
+                            } else{
+                                fin += "\"bin\": "+dtm.getValueAt(i, j)+"}, \n";
+                            }
+                            break;
+                    }
+                }
+                
+            }
+            fin += " {";
         }
         return fin;
     }
