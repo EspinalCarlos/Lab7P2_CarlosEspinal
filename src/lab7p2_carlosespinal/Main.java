@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -242,7 +243,15 @@ public class Main extends javax.swing.JFrame {
                 BufferedWriter buffer = null;
 
                 try {
-                    archivo = new File("./mitexto.txt");
+                    
+                    JFileChooser jfk = new JFileChooser("./");
+                    int result = jfk.showOpenDialog(jPanel2);
+                    String path = "";
+                    if (result == JFileChooser.APPROVE_OPTION) {
+                        File sfile = jfk.getSelectedFile();
+                        path = sfile.getAbsolutePath();
+                    }
+                    archivo = new File(path+".txt");
                     canal = new FileWriter(archivo, false);//SI LE QUITAMOS EL TRUE, REEMPLAZA LOS CONTENIDOS DEL ARCHIVO
                     buffer = new BufferedWriter(canal);
                     buffer.write(tablaString());
