@@ -4,9 +4,14 @@
  */
 package lab7p2_carlosespinal;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -161,27 +166,34 @@ public class Main extends javax.swing.JFrame {
     private void ATablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ATablaMouseClicked
         // TODO add your handling code here:
         File archivo = new File("./data.txt");
-        Scanner sc = null;
+
+        FileReader canal = null;
+        BufferedReader buffer = null;
         if (archivo.exists()) {
             try {
-                sc = new Scanner(archivo);
-                sc.nextLine();
-                sc.useDelimiter(",");
-                while (sc.hasNext()) {
-                    
-                    list.add(new Producto(Integer.parseInt(sc.next()), sc.next(), Integer.parseInt(sc.next()), Double.parseDouble(sc.next()), Integer.parseInt(sc.next()),Integer.parseInt(sc.next())));
-                    sc.nextLine();
+                //archivo = new File("C:/Archivos/respaldo/carta.txt");//Ruta Absoluta
+                archivo = new File("./data.txt"); //ruta relativa
+                canal = new FileReader(archivo);
+                buffer = new BufferedReader(canal);
+
+                String linea = "";
+                while ((linea = buffer.readLine()) != null) {
+                    System.out.println(linea);
                 }
-                for (Producto producto : list) {
-                    Object[] newrow = { producto.getId(), producto.getName(), producto.getCategory(), producto.getPrice(), producto.getAisle(), producto.getAisle()};
-                    DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-                    dtm.addRow(newrow);
-                    jTable1.setModel(dtm);
-                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            sc.close();
+            try {
+                buffer.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                canal.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }//GEN-LAST:event_ATablaMouseClicked
