@@ -73,6 +73,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         EDatos.setText("Exportar Datos");
+        EDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EDatosMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -251,6 +256,11 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3MouseClicked
 
+    private void EDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDatosMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_EDatosMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -296,19 +306,23 @@ public class Main extends javax.swing.JFrame {
                 if (i == 0 && j == 0) {
                     fin += "id,name,category,price,aisle,bin\n";
                     String at = dtm.getValueAt(i, j).toString();
-                    System.out.println(at);
-                    fin += at + ",";
+                        System.out.println(at);
+                        fin += at+",";
                 } else{
                         String at = dtm.getValueAt(i, j).toString();
                         System.out.println(at);
-                        fin += at+",";
+                        fin += at;
                         if (j != 5) {
-                             fin += at+",";
+                             fin +=",";
                         } else{
-                            
+                            fin+="\n";
                         }   
                     
                     
+                }
+                if (i == jTable2.getRowCount() && j == jTable2.getColumnCount()) {
+                    String at = dtm.getValueAt(i, j).toString();
+                    fin+= at;
                 }
                 
             }
