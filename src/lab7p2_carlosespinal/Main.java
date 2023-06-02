@@ -112,7 +112,15 @@ public class Main extends javax.swing.JFrame {
             new String [] {
                 "id", "name", "category", "price", "aisle", "bin"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
 
         jButton2.setText("Add Row");
@@ -287,10 +295,12 @@ public class Main extends javax.swing.JFrame {
                     fin += "id,name,category,price,aisle,bin\n";
                 } else{
                     if (j == 5) {
-                        Object at = (String)dtm.getValueAt(i, j);
+                        String at = dtm.getValueAt(i, j).toString();
+                        System.out.println(at);
                         fin += at+"\n";
                     } else{
-                        Object at = (String)dtm.getValueAt(i, j);
+                        String at = dtm.getValueAt(i, j).toString();
+                        System.out.println(at);
                         fin += at+",";
                     }
                     
