@@ -302,9 +302,11 @@ public class Main extends javax.swing.JFrame {
                         String at = dtm.getValueAt(i, j).toString();
                         System.out.println(at);
                         fin += at+",";
-                        if (j == 5) {
-                            fin += "\n";
-                    }
+                        if (j != 5) {
+                             fin += at+",";
+                        } else{
+                            
+                        }   
                     
                     
                 }
