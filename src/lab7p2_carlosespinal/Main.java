@@ -288,20 +288,22 @@ public class Main extends javax.swing.JFrame {
     
     private String tablaString(){
         String fin = "";
+        System.out.println(jTable2.getRowCount());
+        System.out.println(jTable2.getColumnCount());
         DefaultTableModel dtm = (DefaultTableModel) jTable2.getModel();
         for (int i = 0; i < jTable2.getRowCount(); i++) {
             for (int j = 0; j < jTable2.getColumnCount(); j++) {
                 if (i == 0 && j == 0) {
                     fin += "id,name,category,price,aisle,bin\n";
+                    String at = dtm.getValueAt(i, j).toString();
+                    System.out.println(at);
+                    fin += at + ",";
                 } else{
-                    if (j == 5) {
-                        String at = dtm.getValueAt(i, j).toString();
-                        System.out.println(at);
-                        fin += at+"\n";
-                    } else{
                         String at = dtm.getValueAt(i, j).toString();
                         System.out.println(at);
                         fin += at+",";
+                        if (j == 5) {
+                            fin += "\n";
                     }
                     
                     

@@ -1,3 +1,4 @@
 id,name,category,price,aisle,bin
-aa,1,1.0,111,
+111,a,3,5.0,777,999,
+222,b,4,6.0,888,,
 
